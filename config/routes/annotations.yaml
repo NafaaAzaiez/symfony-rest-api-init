@@ -1,0 +1,9 @@
+api-controllers:
+    resource: ../../src/Controller/v1
+    prefix: /api/v1
+    type: annotation
+
+# TODO REMOVE THE FOLLOWING AFTER LOGIN TESTS
+test:
+    resource: ../../src/Controller/TestController.php
+    type: annotation

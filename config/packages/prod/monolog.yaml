@@ -1,0 +1,12 @@
+monolog:
+    handlers:
+        main:
+            type: rotating_file
+            path: "%kernel.logs_dir%/symfony-rest-api-init.%kernel.environment%.log"
+            level: error
+            channels: ["!event"]
+            max_files: 10
+        nested:
+            type:  stream
+            path:  "php://stderr"
+            level: error

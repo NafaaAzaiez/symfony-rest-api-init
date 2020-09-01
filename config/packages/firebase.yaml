@@ -1,0 +1,4 @@
+kreait_firebase:
+  projects:
+    symfony-rest-api-init:
+      credentials: '%kernel.project_dir%/config/firebase/service-account.json'

@@ -1,0 +1,18 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+fos_rest:
+    routing_loader: false
+    view:
+        view_response_listener: true
+    body_converter:
+        enabled: true
+        validate: true
+    body_listener:
+        throw_exception_on_unsupported_content_type: false
+    param_fetcher_listener: true
+#    allowed_methods_listener:  true
+    exception:
+        enabled: true
+        #TODO add codes and messages
+    format_listener:
+        rules:
+            - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }

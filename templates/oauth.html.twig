@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Oauth {% endblock %}
+
+{% block meta %}
+<meta name="google-signin-client_id" content="588494317258-3e78clg657u0tvu621ngs2dbc1qooa3d.apps.googleusercontent.com">
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+{% endblock %}
+
+{% block body %}
+    <h1>Oauth:</h1>
+
+    <h3>Sign in</h3>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div id="firebaseui-auth-container"></div>
+    <br>
+    <div style="font-weight:bold; word-wrap: break-word;"  id="token">Sign in and the firebase token will be shown here.</div>
+
+{% endblock %}
+
+{#GOOGLE#}
+        {% block javascripts %}
+
+{# FIREBASE #}
+
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
+
+            <!-- TODO: Add SDKs for Firebase products that you want to use
+                 https://firebase.google.com/docs/web/setup#available-libraries -->
+            <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-analytics.js"></script>
+
+            <!-- Add Firebase products that you want to use -->
+            <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-auth.js"></script>
+
+            <script>
+                // Your web app's Firebase configuration
+                var firebaseConfig = { };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                firebase.analytics();
+
+
+                // Initialize the FirebaseUI Widget using Firebase.
+                var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+
+                ui.start('#firebaseui-auth-container', {
+                    signInOptions: [
+                        // List of OAuth providers supported.
+                        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+
+                    ],
+                    // Other config options...
+                });
+
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+
+                        user.getIdToken().then(function(idToken) {
+                            console.log("Firebase token: ");
+                            console.log(idToken);
+                            document.getElementById("token").innerHTML = idToken;
+
+                        });
+                    } else {
+                        console.log("An error occurred.");
+                    }
+                });
+
+
+
+            </script>
+
+        {% endblock %}

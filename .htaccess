@@ -1,0 +1,18 @@
+RewriteEngine on
+RewriteBase /
+
+# MAKE SURE WE USE HTTPS
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} (www\.)?*
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# REDIRECT TO /public
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:nafaa-azaiez.com
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} (www\.)?nafaa-azaiez.com
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:nafaa-azaiez.com

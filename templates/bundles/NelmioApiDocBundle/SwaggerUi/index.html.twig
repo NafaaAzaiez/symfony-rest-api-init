@@ -1,0 +1,33 @@
+{% extends '@!NelmioApiDoc/SwaggerUi/index.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            margin: 0;
+        }
+        header {
+            display: none;
+        }
+        #swagger-ui.api-platform .information-container.wrapper {
+            background-color: black;
+        }
+        #swagger-ui.api-platform .info .title, .swagger-ui .info p  {
+            color: white;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.rawgit.com/Haeresis/konami-code-js/master/src/konami-code.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            new KonamiCode(function () {
+                document.getElementsByClassName('models')[0].style.display = "none";
+                document.body.style.setProperty("transform", "rotate(-180deg)", null);
+            });
+        });
+    </script>
+{% endblock javascripts %}
+

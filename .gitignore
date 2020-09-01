@@ -1,0 +1,41 @@
+###> symfony/framework-bundle ###
+/var/cache/*
+/var/log/*
+/var/db/*
+!var/db/.keep
+/vendor/
+###< symfony/framework-bundle ###
+
+# Managed by Composer
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/phpunit
+!bin/symfony_requirements
+
+# Assets and user uploads
+/public/bundles/
+
+# PHPUnit
+/phpunit.xml
+.phpunit
+.phpunit.result.cache
+/public/coverage/
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###
+
+/public/.DS_Store
+.DS_Store
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+**/Entity/*~
+.idea/
+/docker-compose.override.yml
+/docker/mysql
+config/firebase/service-account.json

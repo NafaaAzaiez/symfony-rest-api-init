@@ -1,0 +1,47 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Symfony REST API  init
+            description: This is an open source project that can be used to initialize any symfony rest api project.
+            version: 1.0.0
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: 'Value: Bearer {jwt}'
+                name: Authorization
+                in: header
+        paths:
+            /api/v1/login:
+                post:
+                    summary: Login and get the JWT token to be used afterward.
+                    tags:
+                        - Authentication
+                    consumes:
+                        - application/json
+                    parameters:
+                        - in: body
+                          name: user
+                          description: user credentials
+                          schema:
+                              type: object
+                              required:
+                                  - email
+                                  - password
+                              properties:
+                                  email:
+                                      type: string
+                                      example: user@email.com
+                                  password:
+                                      type: string
+                                      example: user-pass
+                    responses:
+                        '200':
+                            description: 'The JWT token to be sent afterward with each request.'
+                        '401':
+                            description: 'Invalid credentials.'
+    areas: # to filter documented areas
+        v1:
+            path_patterns: [ ^/api/v1 ]
+        default:
+            path_patterns:
+                - /doc/api/v1

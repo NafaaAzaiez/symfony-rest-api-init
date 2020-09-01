@@ -1,0 +1,6 @@
+parameters:
+    # Mockable Services :
+    # Put here services that can be mocked
+    App\Service\Client\MessageApiClient: App\Service\Client\MessageApiClient
+    App\Service\Client\PaymentApiClient: App\Service\Client\PaymentApiClient
+    App\Service\Cache\RedisTokenManager: App\Service\Cache\RedisTokenManager
