@@ -1,0 +1,27 @@
+default:
+    suites:
+        default:
+            contexts:
+                - App\Tests\Behat\FeatureContext
+                - behatch:context:json
+                - Behat\MinkExtension\Context\MinkContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: features/bootstrap/bootstrap.php
+            kernel:
+                class: App\Kernel
+                environment: test
+                debug: ~
+        Behatch\Extension: ~
+        Behat\MinkExtension:
+            sessions:
+                default:
+                    symfony: ~
+        AdamQuaile\Behat\CommandRunnerExtension:
+              beforeFeature:
+                  - bin/console --env=test doctrine:database:drop --force --if-exists
+                  - bin/console --env=test doctrine:database:create
+                  - bin/console --env=test doctrine:migrations:migrate -n
+              afterSuite:
+                  - bin/console --env=test doctrine:database:drop --force --if-exists

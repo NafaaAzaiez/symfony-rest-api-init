@@ -73,11 +73,14 @@ db-fixtures: ## Reset the database fixtures
 ## TESTS
 ##
 
-unit-tests: ## Run functional tests
+unit-tests: ## Run unit tests
 	$(EXEC) bin/phpunit
 
 unit-tests-coverage: ## Run functional tests
 	$(EXEC) bin/phpunit --coverage-html public/coverage
+
+behat-tests: ## Run behat tests
+	$(EXEC) vendor/bin/behat
 
 ##
 ## Tools

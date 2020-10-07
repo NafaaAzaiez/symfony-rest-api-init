@@ -16,6 +16,7 @@ This is an open source project to initialize any restful symfony project. It is 
 - JWT
 - Validation
 - Unit tests
+- Behat tests
 - Custom Normalizer
 - Database migrations
 - Documentation with Swagger
@@ -118,6 +119,12 @@ make unit-test-coverage
 ```
 
 The coverage report will be accessible at `public/coverage/index.html`
+
+#### Run the behat tests(optional)
+
+```bash
+make behat-test
+```
 
 ### Usage
 
