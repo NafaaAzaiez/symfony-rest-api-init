@@ -84,14 +84,12 @@ make db-reset
 
 ### Firebase
 
-If you will not be using firebase auth you need to comment the following line in `config/packages/firebase.yaml`
+If you will be using firebase auth you need to uncomment the following line in `config/packages/firebase.yaml`
 ```yaml
-      credentials: '%kernel.project_dir%/config/firebase/service-account.json'
+      # credentials: '%kernel.project_dir%/config/firebase/service-account.json'
 ```
 
-
-
-If you will be using the firebase authentication, you need to create a firebase project and import the configuration in this project. Check the following to know how to do it:
+To use the firebase authentication, you need to create a firebase project and import the configuration in this project. Check the following to know how to do it:
 - [Documentation](https://firebase.google.com/docs/admin/setup#initialize-sdk)
 - Youtube tutorial (coming soon)
 

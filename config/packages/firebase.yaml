@@ -1,4 +1,5 @@
 kreait_firebase:
   projects:
     symfony-rest-api-init:
-      credentials: '%kernel.project_dir%/config/firebase/service-account.json'
+#      Uncomment the following to use firebase
+#      credentials: '%kernel.project_dir%/config/firebase/service-account.json'
