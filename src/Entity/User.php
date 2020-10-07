@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @UniqueEntity(fields={"email"})
+ * @UniqueEntity(fields={"email"}, groups={"register"})
  */
 class User extends AbstractEntity implements UserInterface
 {
@@ -32,7 +32,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @ORM\Column
      *
-     * @Assert\NotBlank(groups={"register, patch"})
+     * @Assert\NotBlank(groups={"register", "patch"})
      *
      * @Groups({"user", "listUser","patchUser"})
      */
@@ -43,7 +43,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @ORM\Column
      *
-     * @Assert\NotBlank(groups={"register, patch"})
+     * @Assert\NotBlank(groups={"register", "patch"})
      *
      * @Groups({"user", "listUser","patchUser"})
      */
@@ -54,7 +54,7 @@ class User extends AbstractEntity implements UserInterface
      *
      * @ORM\Column(nullable=true)
      *
-     * @Assert\NotBlank(groups={"register, patch"})
+     * @Assert\NotBlank(groups={"register", "patch"})
      *
      * @Groups({"user", "listUser","patchUser"})
      */
@@ -76,8 +76,8 @@ class User extends AbstractEntity implements UserInterface
      *
      * @Groups({"user", "listUser"})
      *
-     * @Assert\NotBlank(groups={"register, patch"})
-     * @Assert\Email(groups={"register, patch"})
+     * @Assert\NotBlank(groups={"register", "patch"})
+     * @Assert\Email(groups={"register", "patch"})
      */
     protected $email;
 
@@ -86,8 +86,8 @@ class User extends AbstractEntity implements UserInterface
      *
      * @ORM\Column
      *
-     * @Assert\NotBlank(groups={"register, patch"})
-     * @Assert\Length(min="6", minMessage="password.min.length", groups={"register, patch"})
+     * @Assert\NotBlank(groups={"register", "patch"})
+     * @Assert\Length(min="6", minMessage="password.min.length", groups={"register", "patch"})
      */
     protected $password;
 
