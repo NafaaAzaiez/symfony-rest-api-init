@@ -22,8 +22,8 @@ use Lcobucci\JWT\Token;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  */
 class AuthManagerTest extends TestCase
 {
-    private EncoderFactoryInterface $encoderFactory;
+    private PasswordHasherFactoryInterface $passwordHasherFactory;
 
     private EntityManagerInterface $entityManager;
 
@@ -51,7 +51,7 @@ class AuthManagerTest extends TestCase
 
     public function setup(): void
     {
-        $this->encoderFactory = $this->createMock(EncoderFactoryInterface::class);
+        $this->passwordHasherFactory = $this->createMock(PasswordHasherFactoryInterface::class);
         $this->entityManager = $this->createMock(EntityManagerInterface::class);
         $this->tokenManager = $this->createMock(JWTTokenManagerInterface::class);
         $this->userManager = $this->createMock(UserManager::class);
@@ -59,10 +59,11 @@ class AuthManagerTest extends TestCase
         $this->firebaseAuth = $this->createMock(Auth::class);
         $this->repository = $this->createMock(ObjectRepository::class);
 
-        $this->authManager = new AuthManager($this->encoderFactory, $this->entityManager, $this->tokenManager, $this->userManager, $this->normalizer, $this->firebaseAuth);
+        $this->authManager = new AuthManager($this->passwordHasherFactory, $this->entityManager, $this->tokenManager, $this->userManager, $this->normalizer, $this->firebaseAuth);
     }
 
     /**
+     * @group fail
      * @covers ::registerUser
      */
     public function testRegisterUser()
@@ -71,16 +72,17 @@ class AuthManagerTest extends TestCase
         $password = 'password';
         $email = 'address@email.com';
         $token = '$Token$';
-        $encryptedPass = '$ThisIsAnEncodedPassword$';
+        $encryptedPass = '$ThisIsAHashedPassword$';
         $user = (new User())
             ->setEmail($email)
             ->setPassword($password);
-        $encoder = $this->createMock(PasswordEncoderInterface::class);
-        $encoder->expects($this->once())
-            ->method('encodePassword')
-            ->with($password, null)
-            ->willReturn($encryptedPass);
-        $this->encoderFactory->expects($this->once())->method('getEncoder')->willReturn($encoder);
+        $passwordHasher = $this->createMock(PasswordHasherInterface::class);
+        $this->passwordHasherFactory->expects($this->once())
+            ->method('getPasswordHasher')
+            ->with($user)
+            ->willReturn($passwordHasher);
+
+        $passwordHasher->expects($this->any())->method('hash')->with($password)->willReturn($encryptedPass);
         $this->entityManager->expects($this->once())->method('persist');
         $this->entityManager->expects($this->once())->method('flush');
         $this->tokenManager->expects($this->once())->method('create')->willReturn($token);
@@ -187,15 +189,15 @@ class AuthManagerTest extends TestCase
             ->method('create')
             ->willReturn($finalToken);
 
-        $encoder = $this->createMock(PasswordEncoderInterface::class);
-        $encoder->expects($this->once())
-            ->method('encodePassword')
-            ->with($password, null)
+        $passwordHasher = $this->createMock(PasswordHasherInterface::class);
+        $passwordHasher->expects($this->once())
+            ->method('hash')
+            ->with($password)
             ->willReturn($encryptedPass);
 
-        $this->encoderFactory->expects($this->once())
-            ->method('getEncoder')
-            ->willReturn($encoder);
+        $this->passwordHasherFactory->expects($this->once())
+            ->method('getPasswordHasher')
+            ->willReturn($passwordHasher);
 
         $result = $this->authManager->loginFirebase($firebaseToken);
 
@@ -243,12 +245,12 @@ class AuthManagerTest extends TestCase
             ->method('create')
             ->willReturn($finalToken);
 
-        $encoder = $this->createMock(PasswordEncoderInterface::class);
-        $encoder->expects($this->never())
-            ->method('encodePassword');
+        $passwordHasher = $this->createMock(PasswordHasherInterface::class);
+        $passwordHasher->expects($this->never())
+            ->method('hash');
 
-        $this->encoderFactory->expects($this->never())
-            ->method('getEncoder');
+        $this->passwordHasherFactory->expects($this->never())
+            ->method('getPasswordHasher');
 
         $messagingToken = '$messagingToken$';
         $result = $this->authManager->loginFirebase($firebaseToken, $messagingToken);

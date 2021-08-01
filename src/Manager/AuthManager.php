@@ -15,15 +15,15 @@ use Firebase\Auth\Token\Exception\InvalidToken;
 use Kreait\Firebase\Auth;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AuthManager
 {
     /**
-     * @var EncoderFactoryInterface
+     * @var PasswordHasherFactoryInterface
      */
-    private $encoderFactory;
+    private $passwordHasherFactory;
 
     /**
      * @var EntityManagerInterface
@@ -53,9 +53,13 @@ class AuthManager
     /**
      * AuthManager constructor.
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, EntityManagerInterface $entityManager, JWTTokenManagerInterface $tokenManager, UserManager $userManager, NormalizerInterface $normalizer, Auth $firebaseAuth)
-    {
-        $this->encoderFactory = $encoderFactory;
+    public function __construct(
+        PasswordHasherFactoryInterface $passwordHasherFactory,
+        EntityManagerInterface $entityManager,
+        JWTTokenManagerInterface $tokenManager,
+        UserManager $userManager, NormalizerInterface $normalizer, Auth $firebaseAuth
+    ) {
+        $this->passwordHasherFactory = $passwordHasherFactory;
         $this->entityManager = $entityManager;
         $this->tokenManager = $tokenManager;
         $this->userManager = $userManager;
@@ -65,8 +69,8 @@ class AuthManager
 
     public function registerUser(User $user): User
     {
-        $encoder = $this->encoderFactory->getEncoder($user);
-        $encryptedPass = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+        $passwordHasher = $this->passwordHasherFactory->getPasswordHasher($user);
+        $encryptedPass = $passwordHasher->hash($user->getPassword());
         $user->setPassword($encryptedPass);
         $user->setUsername($user->getEmail());
 
