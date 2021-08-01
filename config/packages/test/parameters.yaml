@@ -1,5 +1,0 @@
-parameters:
-    # Mockable Services : Services that can be mocked
-    App\Service\Client\MessageApiClient: App\Tests\Mock\MessageApiClientMock
-    App\Service\Client\PaymentApiClient: App\Tests\Mock\PaymentApiClientMock
-    App\Service\Cache\RedisTokenManager: App\Tests\Mock\RedisTokenManagerMock

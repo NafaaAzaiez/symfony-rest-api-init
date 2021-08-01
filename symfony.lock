@@ -146,9 +146,6 @@
             "ref": "258300d52be6ad59b32a888d5ddafbf9638540ff"
         }
     },
-    "gedmo/doctrine-extensions": {
-        "version": "v2.4.36"
-    },
     "giggsey/libphonenumber-for-php": {
         "version": "8.12.7"
     },
@@ -334,15 +331,6 @@
             "branch": "master",
             "version": "4.0",
             "ref": "421933bf8f0e75546ac8e00cb3eb12904fa2ac1a"
-        }
-    },
-    "stof/doctrine-extensions-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
         }
     },
     "symfony/asset": {

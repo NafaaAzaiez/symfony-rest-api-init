@@ -14,7 +14,6 @@
         "lcobucci/jwt": "3.3.3",
         "lexik/jwt-authentication-bundle": "^2.8",
         "sensio/framework-extra-bundle": "^5.5",
-        "stof/doctrine-extensions-bundle": "^1.4",
         "symfony/asset": "^5.3",
         "symfony/cache": "^5.3",
         "symfony/console": "^5.3",
