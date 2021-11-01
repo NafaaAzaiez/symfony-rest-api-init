@@ -137,6 +137,9 @@
             "ref": "81dee417d2cc60cd1c9d6208dff2ec22a1103e93"
         }
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.5"
+    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -450,9 +453,6 @@
     "symfony/options-resolver": {
         "version": "v4.1.7"
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.5"
-    },
     "symfony/password-hasher": {
         "version": "v5.3.3"
     },
@@ -497,9 +497,6 @@
     },
     "symfony/process": {
         "version": "v4.1.7"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.3"
     },
     "symfony/property-access": {
         "version": "v4.1.7"

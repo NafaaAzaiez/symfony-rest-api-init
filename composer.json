@@ -9,6 +9,7 @@
         "doctrine/annotations": "^1.10",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.10",
         "friendsofsymfony/rest-bundle": "^3.0",
         "kreait/firebase-bundle": "2.2.0",
         "lcobucci/jwt": "3.3.3",
@@ -22,7 +23,6 @@
         "symfony/framework-bundle": "5.3.2",
         "symfony/monolog-bundle": "^3.5",
         "symfony/options-resolver": "^5.3",
-        "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^5.3",
         "symfony/serializer": "^5.3",
         "symfony/templating": "^5.3",
@@ -42,7 +42,8 @@
         "symfony/dotenv": "^5.3",
         "symfony/maker-bundle": "^1.19",
         "symfony/phpunit-bridge": "^5.3",
-        "symfony/profiler-pack": "^1.0"
+        "symfony/stopwatch": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*"
     },
     "config": {
         "preferred-install": {
@@ -83,6 +84,12 @@
     "conflict": {
         "symfony/symfony": "*"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/theofidry/AliceBundle"
+        }
+    ],
     "extra": {
         "symfony": {
             "allow-contrib": true,
