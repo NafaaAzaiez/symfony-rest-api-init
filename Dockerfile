@@ -1,29 +1,31 @@
-ARG PHP_VERSION=7.4
+ARG PHP_VERSION=8.0
 ARG APP_ENV=dev
 
-FROM php:${PHP_VERSION}-fpm-alpine as php_fpm
+FROM php:${PHP_VERSION}-fpm-buster as php_fpm
 
 # persistent / runtime deps
-RUN apk add --no-cache \
-    $PHPIZE_DEPS \
-    acl \
-    file \
-    gettext \
+RUN apt-get update && apt-get install -y \
+    gnupg \
+    g++ \
+    procps \
+    openssl \
     git \
-    freetype-dev \
-    bzip2-dev \
-    icu-dev \
-    libsodium-dev \
+    unzip \
+    zlib1g-dev \
     libzip-dev \
-    ; \
-    docker-php-ext-configure gd --with-freetype=/usr/include/ \
-    && docker-php-ext-install bz2 \
-    && docker-php-ext-install opcache \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install sodium \
-    && docker-php-ext-install bcmath
+    libfreetype6-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libicu-dev  \
+    libonig-dev \
+    libxslt1-dev \
+    acl \
+    && echo 'alias sf="php bin/console"' >> ~/.bashrc
+
+RUN docker-php-ext-configure gd --with-jpeg --with-freetype
+
+RUN docker-php-ext-install \
+    pdo pdo_mysql zip xsl gd intl opcache exif mbstring
 
 RUN pecl install apcu \
     && docker-php-ext-enable apcu
@@ -39,10 +41,7 @@ COPY docker/php/config/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebu
 
 # install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN set -eux; \
-    composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative;
-
+RUN composer self-update
 WORKDIR /var/www/api
 
 ENV PATH="${PATH}:/root/.composer/vendor/bin"

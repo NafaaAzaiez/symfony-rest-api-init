@@ -149,12 +149,6 @@
             "ref": "258300d52be6ad59b32a888d5ddafbf9638540ff"
         }
     },
-    "giggsey/libphonenumber-for-php": {
-        "version": "8.12.7"
-    },
-    "giggsey/locale": {
-        "version": "1.9"
-    },
     "google/auth": {
         "version": "v1.10.0"
     },
@@ -202,6 +196,9 @@
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
+    },
+    "lcobucci/clock": {
+        "version": "2.0.0"
     },
     "lcobucci/jwt": {
         "version": "3.3.1"
@@ -286,6 +283,9 @@
         "version": "1.0.0"
     },
     "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
         "version": "1.0.1"
     },
     "psr/http-message": {
