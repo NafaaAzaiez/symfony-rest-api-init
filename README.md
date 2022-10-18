@@ -1,3 +1,13 @@
+## Update
+
+This an old project that needs a lot of improvements, still useful to create a simple CRUD api with the standard structure **BUT** I really advise you consider a **clean/hexagonale architecture**, apply **TDD** and make tests about behaviour not only a single function isolated from all the context (unless it is a very complicated and important function).
+
+See:
+  - Hexagonale architecture
+  - Clean architecture
+  - Use-case driven design
+  - TDD
+
 ## Introduction
 
 This is an open source project to initialize any restful symfony project. It is like the symfony skeleton but enriched with some main libraries and functionalities needed in most restful apps. Whether you are creating an API as a backend for a mobile app or a micro-service for a single page application (SPA), this project may be a shortcut to save you time, get inspired by how things are done, or better, clone it, adapt it and start working directly on the core of your app.
